@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keep my Screen Wake UP</title>
+</head>
+<style>
+    *{
+        background-color: black; height: 100vh; width: 100vw; margin: 0px;
+        }
+</style>
+<body>
+    <div class="main" id="main">
+Lumd
+    </div>
+</body>
+<script>
+    let wakeLock = null;
+
+async function requestWakeLock() {
+    try {
+        wakeLock = await navigator.wakeLock.request('screen');
+        console.log('Wake lock is active');
+
+        // Handle if the wake lock is released
+        wakeLock.addEventListener('release', () => {
+            console.log('Wake lock has been released');
+        });
+    } catch (err) {
+        console.error('Failed to acquire wake lock:', err);
+    }
+}
+
+// Function to enter fullscreen
+function enterFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error(`Failed to enter fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen().catch(err => {
+                    console.error(`Failed to exit fullscreen: ${err.message}`);
+                });
+            }
+        }
+
+ // Event listener for keydown
+ document.addEventListener('keydown', (event) => {
+            if (event.key === 'f' || event.code === 'Space') {
+                event.preventDefault(); // Prevent default space behavior (scrolling)
+                enterFullscreen();
+            }
+        });
+
+        // Event listener for mouse click
+        document.addEventListener('click', () => {
+            enterFullscreen();
+        }); 
+               
+// Call this function to keep the screen awake
+document.addEventListener('DOMContentLoaded', async () => {
+    requestWakeLock();
+    if (wakeLock !== null) {
+        console.log("Working...")
+    }else{
+        console.log("Not Working...")
+    }
+    console.log('Requested!')
+});
+
+// Optional: Release wake lock when not needed
+function releaseWakeLock() {
+    if (wakeLock !== null) {
+        wakeLock.release();
+        wakeLock = null;
+    }
+}
+
+
+</script>
+</html>
