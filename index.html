@@ -7,16 +7,20 @@
     <title>Keep my Screen Wake UP</title>
 </head>
 <style>
-    *{
+    body{
         background-color: black; height: 100vh; width: 100vw; margin: 0px;
+        }
+        #vid{
+            display: none;
         }
 </style>
 <body>
     <div class="main" id="main">
-Lumd
+<video id='vid' src="/black bg.mov" loop  muted autoplay></video>
     </div>
 </body>
 <script>
+    document.getElementById('vid'). play().catch((err) =>{console.error("failed to play video",err)});
     let wakeLock = null;
 
 async function requestWakeLock() {
