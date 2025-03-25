@@ -39,6 +39,7 @@ async function requestWakeLock() {
 
 // Function to enter fullscreen
 function enterFullscreen() {
+            requestWakeLock();
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().catch(err => {
                     console.error(`Failed to enter fullscreen: ${err.message}`);
