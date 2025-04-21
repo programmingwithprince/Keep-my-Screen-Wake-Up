@@ -83,6 +83,37 @@ function releaseWakeLock() {
     }
 }
 
+// Create full-screen clock
+const clockDiv = document.createElement('div');
+clockDiv.id = 'clock';
+document.body.style.margin = '0';
+document.body.style.backgroundColor = 'black';
+document.body.style.color = 'white';
+document.body.style.fontSize = '10vw';
+document.body.style.fontFamily = 'Arial, sans-serif';
+document.body.style.display = 'flex';
+document.body.style.justifyContent = 'center';
+document.body.style.alignItems = 'center';
+document.body.style.height = '100vh';
+document.body.appendChild(clockDiv);
+
+function updateTime() {
+  const now = new Date();
+  let hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0 becomes 12
+
+  const format = (num) => num < 10 ? '0' + num : num;
+  const timeString = `${ampm} ${format(hours)}:${format(minutes)}:${format(seconds)}`;
+
+  clockDiv.textContent = timeString;
+}
+
+setInterval(updateTime, 1000);
+updateTime();
 
 </script>
 </html>
