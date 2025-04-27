@@ -2,6 +2,7 @@
 
 Do you get frustrated when your device screen turns off while you're downloading games, reading a long PDF, or watching static content? Worry no more! **Keep My Screen Awake** is a simple web app designed to prevent your screen from dimming or locking automatically. 🕒✨
 
+https://programmingwithprince.github.io/Keep-my-Screen-Wake-Up/
 ## 🚀 Features
 
 1. **Prevent Screen Timeout** 🛡️:
