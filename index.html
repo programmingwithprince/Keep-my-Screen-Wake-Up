@@ -4,124 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-site-verification" content="pvzQMhIlRsv5gE5LupnZxEyOJkVbmvFP1gV6Hu8UgFk" />
-    <title>Keep my Screen Wake UP</title>
+    <meta name="description" content="A lightweight, zero-bloat, privacy-first web utility using the Screen Wake Lock API to prevent system sleep, screen dimming, and ACPI driver crashes during downloads or study blocks.">
+    <meta name="keywords" content="screen wake lock, keep screen awake, online black screen clock, don't sleep clock, linux sleep fix">
+    <title>Keep My Screen Awake - Free Screen Wake Lock Utility</title>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Keep My Screen Awake",
+      "url": "https://programmingwithprince.github.io/Keep-my-Screen-Wake-Up/",
+      "description": "A lightweight, zero-dependency, privacy-first web utility that uses the Screen Wake Lock API to prevent devices from sleeping or dimming during downloads or long study sessions.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires a browser that supports the Screen Wake Lock API (Chrome, Edge, Brave, Safari, Firefox).",
+      "features": [
+        "Prevent screen timeout natively",
+        "Toggle fullscreen mode via Space or F key",
+        "Zero advertisements and zero tracking scripts",
+        "Ultra-low CPU and hardware overhead"
+      ],
+      "creator": {
+        "@type": "Person",
+        "name": "Prince"
+      }
+    }
+    </script>
+
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            cursor: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+        }
+        #clock {
+            width: 100vw;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 11vw;
+            word-spacing: 0.5em;
+        }
+        /* Low-contrast donation link that disappears natively in fullscreen mode */
+        .donation-link {
+            position: fixed;
+            bottom: 15px;
+            color: #1a1a1a; /* Stealth dark gray over black background */
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        .donation-link:hover {
+            color: #444444; /* Lights up slightly on hover so users know it is clickable */
+        }
+        :fullscreen .donation-link { display: none !important; }
+        :-webkit-full-screen .donation-link { display: none !important; }
+        :-moz-full-screen .donation-link { display: none !important; }
+    </style>
 </head>
-<style>
-    body{
-        background-color: black; height: 100vh; width: 100vw; margin: 0px;
-        }
-        #vid{
-            display: none;
-        }
-</style>
 <body>
-    <div class="main" id="main">
 
-    </div>
-</body>
+    <header style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
+        <h1>Keep My Screen Awake - Natively Prevent System Sleep</h1>
+        <h2>A minimalist online clock and wake lock tool for downloads, gaming, and distraction-free study.</h2>
+    </header>
+
+    <main class="main" id="main">
+        <div id="clock" role="timer" aria-live="polite" aria-label="Current system time">00:00:00 AM</div>
+    </main>
+
+    <a href="https://www.buymeacoffee.com/YOUR_USERNAME" target="_blank" class="donation-link" id="coffeeBtn" rel="noopener">
+        <span>☕ buy me a coffee</span>
+    </a>
+
 <script>
-
     let wakeLock = null;
+    const clockDiv = document.getElementById('clock');
 
-async function requestWakeLock() {
-    try {
-        wakeLock = await navigator.wakeLock.request('screen');
-        console.log('Wake lock is active');
+    // Safe Asynchronous Wake Lock Request Wrapper
+    async function requestWakeLock() {
+        if ('wakeLock' in navigator) {
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Wake Lock Status: ACTIVE');
 
-        // Handle if the wake lock is released
-        wakeLock.addEventListener('release', () => {
-            console.log('Wake lock has been released');
-        });
-    } catch (err) {
-        console.error('Failed to acquire wake lock:', err);
-    }
-}
-
-// Function to enter fullscreen
-function enterFullscreen() {
-            requestWakeLock();
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
-                    console.error(`Failed to enter fullscreen: ${err.message}`);
+                wakeLock.addEventListener('release', () => {
+                    console.log('Wake Lock Status: RELEASED');
                 });
-            } else {
-                document.exitFullscreen().catch(err => {
-                    console.error(`Failed to exit fullscreen: ${err.message}`);
-                });
+            } catch (err) {
+                console.warn(`Wake Lock Intercepted: ${err.message}`);
             }
         }
-
- // Event listener for keydown
- document.addEventListener('keydown', (event) => {
-            if (event.key === 'f' || event.code === 'Space') {
-                event.preventDefault(); // Prevent default space behavior (scrolling)
-                enterFullscreen();
-            }
-        });
-
-        // Event listener for mouse click
-        document.addEventListener('click', () => {
-            enterFullscreen();
-        }); 
-               
-// Call this function to keep the screen awake
-document.addEventListener('DOMContentLoaded', async () => {
-    requestWakeLock();
-    if (wakeLock !== null) {
-        console.log("Working...")
-    }else{
-        console.log("Not Working...")
     }
-    console.log('Requested!')
-});
 
-// Optional: Release wake lock when not needed
-function releaseWakeLock() {
-    if (wakeLock !== null) {
-        wakeLock.release();
-        wakeLock = null;
+    // Native Fullscreen Engine Toggle
+    function toggleFullscreen() {
+        requestWakeLock(); // Fire a fresh hardware token lock on user intent
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.error(`Screen expansion failed: ${err.message}`);
+            });
+        } else {
+            document.exitFullscreen().catch(err => {
+                console.error(`Screen exit failed: ${err.message}`);
+            });
+        }
     }
-}
 
-// Create and style the clock container
-const clockDiv = document.createElement('div');
-clockDiv.id = 'clock';
-clockDiv.style.width = '100vw';
-clockDiv.style.textAlign = 'center';
-clockDiv.style.color = 'white';
-clockDiv.style.fontFamily = 'Arial, sans-serif';
-clockDiv.style.fontSize = '11vw';
-clockDiv.style.wordSpacing = '0.5em';
+    // Input Listeners with safe case validation
+    document.addEventListener('keydown', (event) => {
+        if (event.key.toLowerCase() === 'f' || event.code === 'Space') {
+            event.preventDefault(); 
+            toggleFullscreen();
+        }
+    });
 
-// Style the body for fullscreen black background
-document.body.style.margin = '0';
-document.body.style.cursor = 'none';
-document.body.style.backgroundColor = 'black';
-document.body.style.display = 'flex';
-document.body.style.justifyContent = 'center';
-document.body.style.alignItems = 'center';
-document.body.style.height = '100vh';
+    document.addEventListener('click', () => {
+        toggleFullscreen();
+    }); 
 
-// Add clock to the body
-document.body.appendChild(clockDiv);
+    // Handle OS Tab Visibility State Changes (Fixes the background sleep drop bug)
+    document.addEventListener('visibilitychange', async () => {
+        if (document.visibilityState === 'visible') {
+            await requestWakeLock();
+        }
+    });
 
-// Clock update logic
-function updateTime() {
-  const now = new Date();
-  let hours = now.getHours();
-  const minutes = now.getMinutes();
-  const seconds = now.getSeconds();
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12 || 12; // Convert 0 to 12
+    // Clock Execution Module
+    function updateTime() {
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = now.getMinutes();
+        const seconds = now.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        
+        hours = hours % 12 || 12; // Convert 0 to 12
 
-  const format = (num) => num < 10 ? '0' + num : num;
-  const timeString = `${format(hours)}:${format(minutes)}:${format(seconds)} ${ampm}`;
+        const format = (num) => num < 10 ? '0' + num : num;
+        clockDiv.textContent = `${format(hours)}:${format(minutes)}:${format(seconds)} ${ampm}`;
+    }
 
-  clockDiv.textContent = timeString;
-}
-
-setInterval(updateTime, 1000);
-updateTime();
-
+    // Initial Execution
+    setInterval(updateTime, 1000);
+    updateTime();
+    requestWakeLock(); // Attempt boot execution (Will handle fallback safely if browser blocks it)
 </script>
+</body>
 </html>
