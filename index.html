@@ -8,21 +8,21 @@
     <meta name="keywords" content="screen wake lock, keep screen awake, online black screen clock, don't sleep clock, linux sleep fix">
     <title>Keep My Screen Awake - Free Screen Wake Lock Utility</title>
     
-    <script type="application/ld+json">
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Keep My Screen Awake",
+      "name": "Black Screen Clock & Wake Lock Utility",
       "url": "https://programmingwithprince.github.io/Keep-my-Screen-Wake-Up/",
-      "description": "A lightweight, zero-dependency, privacy-first web utility that uses the Screen Wake Lock API to prevent devices from sleeping or dimming during downloads or long study sessions.",
+      "description": "A zero-install browser caffeine utility and dark mode clock designed to keep idle secondary monitors awake and provide a distraction-free timer for student study sessions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "All",
-      "browserRequirements": "Requires a browser that supports the Screen Wake Lock API (Chrome, Edge, Brave, Safari, Firefox).",
+      "browserRequirements": "Requires Chrome, Edge, Brave, Safari, or Firefox.",
       "features": [
-        "Prevent screen timeout natively",
-        "Toggle fullscreen mode via Space or F key",
-        "Zero advertisements and zero tracking scripts",
-        "Ultra-low CPU and hardware overhead"
+        "Full-screen minimalist black clock for deep focus",
+        "Keep secondary monitors and idle displays awake natively",
+        "Bypass OS auto-lock during study blocks and downloads",
+        "Zero tracking, zero installation, and OLED burn-in safe"
       ],
       "creator": {
         "@type": "Person",
@@ -67,6 +67,20 @@
             cursor: pointer;
             z-index: 1000;
         }
+        #seo-knowledge-base {
+            position: absolute;
+            bottom: 45px;
+            width: 85%;
+            max-width: 650px;
+            color: #111111; 
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            text-align: center;
+            line-height: 1.4;
+            pointer-events: none;
+            z-index: 1;
+            display:none;
+        }
         .donation-link:hover {
             color: #444444; /* Lights up slightly on hover so users know it is clickable */
         }
@@ -79,7 +93,7 @@
 
     <header style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
         <h1>Keep My Screen Awake - Natively Prevent System Sleep</h1>
-        <h2>A minimalist online clock and wake lock tool for downloads, gaming, and distraction-free study.</h2>
+        <h2>A minimalist online clock and wake lock tool for distraction-free study, gaming, and ddownloads.</h2>
     </header>
 
     <main class="main" id="main">
@@ -89,7 +103,12 @@
     <a href="https://github.com/programmingwithprince/Keep-my-Screen-Wake-Up" target="_blank" class="donation-link" id="coffeeBtn" rel="noopener">
         <span>⭐ star on github</span>
     </a>
-
+<section id="seo-knowledge-base">
+        <h2>A minimalist black screen clock for students and focus blocks</h2>
+        <p>Designed for deep work, this zero-glare full-screen clock keeps your display active during long study sessions, Pomodoro timers, or exam prep without causing eye strain. The pitch-black background saves OLED battery life while processing native hardware wake commands to prevent your device from automatically locking.</p>
+        <h2>Keep secondary monitors awake when idle</h2>
+        <p>Operating multiple displays often results in aggressive OS idle timeouts. Leaving this web utility running on a secondary monitor keeps the screen awake natively without requiring administrative privileges or third-party background software. Ideal for dashboard monitoring, passive data viewing, or preventing forced idle logouts on corporate laptops.</p>
+    </section>
 <script>
     let wakeLock = null;
     const clockDiv = document.getElementById('clock');
