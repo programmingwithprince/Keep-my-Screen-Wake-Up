@@ -55,11 +55,25 @@
             font-size: 11vw;
             word-spacing: 0.5em;
         }
-        /* Low-contrast donation link that disappears natively in fullscreen mode */
+        
+        /* SEO Element Clipping Engine - Hides element visually but forces bot indexation */
+        .seo-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Low-contrast donation link */
         .donation-link {
             position: fixed;
             bottom: 15px;
-            color: #1a1a1a; /* Stealth dark gray over black background */
+            color: #1a1a1a; 
             font-family: Arial, sans-serif;
             font-size: 12px;
             text-decoration: none;
@@ -67,23 +81,10 @@
             cursor: pointer;
             z-index: 1000;
         }
-        #seo-knowledge-base {
-            position: absolute;
-            bottom: 45px;
-            width: 85%;
-            max-width: 650px;
-            color: #111111; 
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            text-align: center;
-            line-height: 1.4;
-            pointer-events: none;
-            z-index: 1;
-            display:none;
-        }
         .donation-link:hover {
-            color: #444444; /* Lights up slightly on hover so users know it is clickable */
+            color: #444444; 
         }
+        
         :fullscreen .donation-link { display: none !important; }
         :-webkit-full-screen .donation-link { display: none !important; }
         :-moz-full-screen .donation-link { display: none !important; }
@@ -91,9 +92,9 @@
 </head>
 <body>
 
-    <header style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">
+    <header class="seo-hidden">
         <h1>Keep My Screen Awake - Natively Prevent System Sleep</h1>
-        <h2>A minimalist online clock and wake lock tool for distraction-free study, gaming, and ddownloads.</h2>
+        <h2>A minimalist online clock and wake lock tool for distraction-free study, gaming, and downloads.</h2>
     </header>
 
     <main class="main" id="main">
@@ -103,12 +104,14 @@
     <a href="https://github.com/programmingwithprince/Keep-my-Screen-Wake-Up" target="_blank" class="donation-link" id="coffeeBtn" rel="noopener">
         <span>⭐ star on github</span>
     </a>
-<section id="seo-knowledge-base">
+
+    <section class="seo-hidden" id="seo-knowledge-base">
         <h2>A minimalist black screen clock for students and focus blocks</h2>
         <p>Designed for deep work, this zero-glare full-screen clock keeps your display active during long study sessions, Pomodoro timers, or exam prep without causing eye strain. The pitch-black background saves OLED battery life while processing native hardware wake commands to prevent your device from automatically locking.</p>
         <h2>Keep secondary monitors awake when idle</h2>
         <p>Operating multiple displays often results in aggressive OS idle timeouts. Leaving this web utility running on a secondary monitor keeps the screen awake natively without requiring administrative privileges or third-party background software. Ideal for dashboard monitoring, passive data viewing, or preventing forced idle logouts on corporate laptops.</p>
     </section>
+
 <script>
     let wakeLock = null;
     const clockDiv = document.getElementById('clock');
