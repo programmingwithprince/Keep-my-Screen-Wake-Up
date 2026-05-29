@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detailed documentation, technical specifications, and user guide for the Keep My Screen Awake browser utility. Learn how the Screen Wake Lock API prevents system sleep.">
+    <meta name="keywords" content="screen wake lock api, keep screen awake online, prevent computer sleep, browser caffeine utility, don't sleep clock, stop monitor dimming, linux sleep fix, oled screen saver clock">
+    <title>Documentation & User Guide - Keep My Screen Awake</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #b3b3b3;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            padding: 40px 20px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            border-bottom: 1px solid #222;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-top: 40px;
+            border-bottom: 1px solid #111;
+            padding-bottom: 8px;
+        }
+        h3 {
+            color: #e6e6e6;
+            font-size: 1.3rem;
+            margin-top: 25px;
+        }
+        strong {
+            color: #ffffff;
+        }
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        a:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #1a1a1a;
+            color: #f43f5e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            font-size: 0.85rem;
+            color: #555555;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="./" class="back-link">← Return to Screen Wake Lock Application</a>
+
+    <header>
+        <h1>Keep My Screen Awake - Technical Documentation</h1>
+        <p>Welcome to the comprehensive documentation manual for the <strong>Keep My Screen Awake</strong> web utility. This tool is a lightweight, client-side, zero-install alternative to traditional desktop applications like Caffeine (Mac) or PowerToys Awake (Windows), engineered to grant users direct control over their device display sleep states.</p>
+    </header>
+
+    <main>
+        <section id="executive-summary">
+            <h2>1. Executive Project Summary</h2>
+            <p>Modern operating systems deploy aggressive ACPI (Advanced Configuration and Power Interface) power-saving profiles that dim or shut down displays during periods of user inactivity. While ideal for conserving notebook battery metrics, this behavior disrupts passive background operations, dashboard monitoring, and focused user reading sessions.</p>
+            <p>This web application acts as an online hardware keep-alive toggle, displaying a high-contrast, distraction-free digital clock over an OLED-safe pitch-black viewport while silently executing device interface management locks inside the browser runtime engine.</p>
+        </section>
+
+        <section id="core-features">
+            <h2>2. Core Functional Capabilities</h2>
+            <ul>
+                <li><strong>Native Screen Wake Lock API Token Integration:</strong> Directly communicates with your operating system's underlying power management layer via secure browser request contexts to prevent display state transitions.</li>
+                <li><strong>OLED Burn-In Safety Protocols:</strong> Utilizes a pure hex `#000000` color gamut space layout to turn off pixels on compatible organic light-emitting diode (OLED) and AMOLED panels, dropping display power draw while remaining fully active.</li>
+                <li><strong>Tab Visibility Intercept Engine:</strong> Listens for browser tab suspension states. If you switch tabs and return, the script instantly evaluates the document state and re-acquires the power framework tokens seamlessly.</li>
+                <li><strong>Keyboard & Touch Gesture Macro Engine:</strong> Toggle into a completely immersive fullscreen experience using instant UI touch coordinates, or via keyboard macros (pressing <code>Spacebar</code> or the <code>F</code> key).</li>
+            </ul>
+        </section>
+
+        <section id="technical-architecture">
+            <h2>3. Under the Hood: Technical Architecture</h2>
+            <p>Unlike archaic, resource-heavy workarounds that stream looped, hidden invisible videos or generate continuous fake keyboard hardware simulations, this utility relies strictly on modern web APIs:</p>
+            
+            <h3>The Screen Wake Lock API</h3>
+            <p>The core logic requests a <code>WakeLockSentinel</code> object matching the <code>'screen'</code> parameter context. When active, the browser registers a system-level block against the display turning off. This is a low-overhead process that operates completely within sandboxed browser security parameters, meaning it requires <strong>zero administrative privileges</strong> or system root access to block corporate enterprise IT sleep policies.</p>
+
+            <h3>Lifecycle Resiliency Handling</h3>
+            <p>Operating system power engines automatically drop application tokens when window layouts change. To combat this, our execution loop actively evaluates the <code>visibilitychange</code> document interface state. The second your browser window focus re-enters a visible quadrant, a fresh asynchronous hardware acquisition pipeline triggers instantly to protect active download sequences or continuous dashboard analytics streams from breaking.</p>
+        </section>
+
+        <section id="use-cases">
+            <h2>4. Target Scenarios & Industry Use Cases</h2>
+            
+            <h3>Academic Study Blocks & Pomodoro Focus Labs</h3>
+            <p>Students reading dense online documentation, medical papers, or following long video lectures frequently run into screens dimming. This tool doubles as a non-glare desk clock, ensuring textbooks or reference material remain perfectly visible without needing constant mouse movement.</p>
+
+            <h3>Secondary Monitor & Infrastructure Dashboard Tracking</h3>
+            <p>System administrators, crypto traders, and DevOps monitoring pipelines frequently deploy secondary idle monitors to display real-time metrics. This web app overrides standard OS screen-saving timeouts, keeping peripheral instrumentation arrays visible indefinitely.</p>
+
+            <h3>Large Asset Download Assurances</h3>
+            <p>When pulling down large assets, game updates, or running code compilation jobs, an OS entering deep system sleep can crash networking sockets or drop ACPI drivers. Leaving this tool open maintains active communication channels until your background tasks finish successfully.</p>
+
+            <h3>Linux OS Sleep Issues</h3>
+            <p>Certain Linux distribution configurations running Wayland or X11 desktop environments run into unpredictable power management bugs that trigger random freezes during monitor wake events. Keeping a clean browser wake lock active completely bypasses these driver instability crashes.</p>
+        </section>
+
+        <section id="privacy-security">
+            <h2>5. Enterprise Privacy & Security Guardrails</h2>
+            <p>This utility is strictly developed with a <strong>privacy-first, zero-bloat architecture</strong>:</p>
+            <ol>
+                <li><strong>Zero Server-Side Telemetry:</strong> All time computations and API system wake calls execute inside your local browser memory space. No tracking tags or third-party cookies are used.</li>
+                <li><strong>No Administrative Rights Needed:</strong> Perfect for corporate laptops where Group Policy Objects (GPO) block the installation of tools like `.exe` or `.dmg` files. This works safely within standard browser sandbox rules.</li>
+                <li><strong>Open Source Auditability:</strong> The complete source control tree is transparently hosted right on GitHub, making it fully auditable for security compliance checks.</li>
+            </ol>
+        </section>
+
+        <section id="compatibility">
+            <h2>6. Global Browser & OS Compatibility Matrix</h2>
+            <p>The underlying API commands run flawlessly across almost all modern web platform engines, including:</p>
+            <ul>
+                <li><strong>Microsoft Windows 10 & 11:</strong> Google Chrome, Microsoft Edge, Brave Browser, Opera, Mozilla Firefox.</li>
+                <li><strong>Apple macOS:</strong> Apple Safari (v14+), Chrome, Firefox.</li>
+                <li><strong>Google Android:</strong> Native Android Chrome, Edge Mobile, Samsung Internet.</li>
+                <li><strong>Linux Environments:</strong> Ubuntu, Arch Linux, Fedora running Chromium or Firefox.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Keep My Screen Awake Utility • Maintained by Prince • Licensed under MIT Open Source Guidelines.</p>
+    </footer>
+
+</body>
+</html>
