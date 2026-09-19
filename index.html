@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://programmingwithprince.github.io/Keep-my-Screen-Wake-Up/" />
+    <link rel="canonical" href="https://tools.31415929.xyz/Keep-my-Screen-Wake-Up/" />
 
     <meta name="google-site-verification" content="pvzQMhIlRsv5gE5LupnZxEyOJkVbmvFP1gV6Hu8UgFk" />
     <meta name="description" content="A lightweight, zero-bloat, privacy-first web utility using the Screen Wake Lock API to prevent system sleep, screen dimming, and ACPI driver crashes during downloads or study blocks.">
     <meta name="keywords" content="screen wake lock, keep screen awake, online black screen clock, don't sleep clock, linux sleep fix">
     <title>Keep My Screen Awake - No Ads Screen Wake Lock Utility</title>
     
-  <script type="application/ld+json">
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org", 
       "@type": "WebApplication",
       "name": "Black Screen Clock & Wake Lock Utility No Ads",
-      "url": "https://programmingwithprince.github.io/Keep-my-Screen-Wake-Up/",
+      "url": "https://tools.31415929.xyz/Keep-my-Screen-Wake-Up/",
       "description": "A No Ads Black Screen Clock & Wake Lock utility and dark mode clock designed to keep idle secondary monitors awake and provide a distraction-free timer for student study sessions.",
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "All",
@@ -59,7 +59,7 @@
             word-spacing: 0.5em;
         }
         
-        /* SEO Element Clipping Engine - Hides element visually but forces bot indexation */
+        /* SEO Element Clipping Engine */
         .seo-hidden {
             position: absolute;
             width: 1px;
@@ -72,59 +72,40 @@
             border-width: 0;
         }
 
-        /* Low-contrast donation link */
-        .donation-link {
+        .footer-navigation {
             position: fixed;
-            bottom: 15px;
-            color: #1a1a1a; 
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            z-index: 1000;
+            width: 100vw;
+            margin: auto;
+        }
+
+        .footer-navigation a {
+            color: #222222;
             font-family: Arial, sans-serif;
             font-size: 12px;
             text-decoration: none;
             transition: color 0.2s ease;
             cursor: pointer;
-            z-index: 1000;
+            user-select: none;
+            -webkit-user-select: none;
         }
-        .footer-navigation {
-   position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    z-index: 1000;
-    width: 100vw;
-    margin: auto;
-}
 
-.footer-navigation a {
-    color: #222222; /* Clean, ultra-low contrast to match your original look */
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-.footer-navigation a:hover {
-    color: #666666; /* Subdued highlight state on hover */
-}
-
-/* Seamless Fullscreen Hiding Layout Rule */
-:fullscreen .footer-navigation,
-:-webkit-full-screen .footer-navigation,
-:-moz-full-screen .footer-navigation { 
-    display: none !important; 
-}
-        .donation-link:hover {
-            color: #444444; 
+        .footer-navigation a:hover {
+            color: #666666;
         }
-        
-        :fullscreen .footer-navigation { display: none !important; }
-        :-webkit-full-screen .footer-navigation { display: none !important; }
-        :-moz-full-screen .footer-navigation { display: none !important; }
+
+        /* Fullscreen auto-hide */
+        :fullscreen .footer-navigation,
+        :-webkit-full-screen .footer-navigation,
+        :-moz-full-screen .footer-navigation { 
+            display: none !important; 
+        }
     </style>
 </head>
 <body>
@@ -138,14 +119,17 @@
         <div id="clock" role="timer" aria-live="polite" aria-label="Current system time">00:00:00 AM</div>
     </main>
 
-<div class="footer-navigation">
-    <a href="https://github.com/programmingwithprince/Keep-my-Screen-Wake-Up" target="_blank" rel="noopener">
-        Star on github
-    </a>
-    <a href="./docs.html">
-        Documentation
-    </a>
-</div>
+    <div class="footer-navigation">
+        <a href="https://tools.31415929.xyz/">
+            &larr; More Developer Tools
+        </a>
+        <a href="https://github.com/programmingwithprince/Keep-my-Screen-Wake-Up" target="_blank" rel="noopener">
+            Star on GitHub
+        </a>
+        <a href="./docs.html">
+            Documentation
+        </a>
+    </div>
 
     <section class="seo-hidden" id="seo-knowledge-base">
         <h2>A minimalist black screen clock for students and focus blocks</h2>
@@ -158,7 +142,6 @@
     let wakeLock = null;
     const clockDiv = document.getElementById('clock');
 
-    // Safe Asynchronous Wake Lock Request Wrapper
     async function requestWakeLock() {
         if ('wakeLock' in navigator) {
             try {
@@ -174,9 +157,8 @@
         }
     }
 
-    // Native Fullscreen Engine Toggle
     function toggleFullscreen() {
-        requestWakeLock(); // Fire a fresh hardware token lock on user intent
+        requestWakeLock();
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen().catch(err => {
                 console.error(`Screen expansion failed: ${err.message}`);
@@ -188,7 +170,6 @@
         }
     }
 
-    // Input Listeners with safe case validation
     document.addEventListener('keydown', (event) => {
         if (event.key.toLowerCase() === 'f' || event.code === 'Space') {
             event.preventDefault(); 
@@ -200,14 +181,12 @@
         toggleFullscreen();
     }); 
 
-    // Handle OS Tab Visibility State Changes (Fixes the background sleep drop bug)
     document.addEventListener('visibilitychange', async () => {
         if (document.visibilityState === 'visible') {
             await requestWakeLock();
         }
     });
 
-    // Clock Execution Module
     function updateTime() {
         const now = new Date();
         let hours = now.getHours();
@@ -215,17 +194,17 @@
         const seconds = now.getSeconds();
         const ampm = hours >= 12 ? 'PM' : 'AM';
         
-        hours = hours % 12 || 12; // Convert 0 to 12
+        hours = hours % 12 || 12;
 
         const format = (num) => num < 10 ? '0' + num : num;
         clockDiv.textContent = `${format(hours)}:${format(minutes)}:${format(seconds)} ${ampm}`;
     }
 
-    // Initial Execution
     setInterval(updateTime, 1000);
     updateTime();
-    requestWakeLock(); // Attempt boot execution (Will handle fallback safely if browser blocks it)
+    requestWakeLock();
 </script>
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CE7CT0BB1X"></script>
 <script>
