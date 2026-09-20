@@ -6,6 +6,8 @@ https://programmingwithprince.github.io/Keep-my-Screen-Wake-Up/
 
 https://keep-my-screen-wake-up.vercel.app/
 
+https://tools.31415929.xyz/Keep-my-Screen-Wake-Up/
+
 ## 🚀 Features
 
 1. **Prevent Screen Timeout** 🛡️:
